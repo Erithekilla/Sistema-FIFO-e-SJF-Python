@@ -2,13 +2,14 @@ import time
 import threading
 
 class Processos:
-    def __init__(self, nome, tempo, chegada):
+    def __init__(self, nome, tempo, chegada, prioridade):
         self.nome = nome
         self.tempo = tempo
         self.chegada = chegada
+        self.prioridade = prioridade
 
     def __repr__(self):
-        return f"Processo: {self.nome} | Tempo de execução: {self.tempo} | Tempo de chegada: {self.chegada}\n"
+        return f"Processo: {self.nome} | Tempo de execução: {self.tempo} | Tempo de chegada: {self.chegada} | Prioridade: {self.prioridade}\n"
 
 def executar_processo(processo):
     print(f"Iniciando {processo.nome}. \nDuração prevista: {processo.tempo}")
@@ -22,12 +23,15 @@ def simulador(lista_processos, algoritmo):
     
     print(f"Será executado o algoritmo {algoritmo}")
     
+    lista_processos.sort(key=lambda x: x.prioridade)
 
     if algoritmo.upper() == 'FIFO':
         lista_processos.sort(key=lambda x: x.chegada)
 
     if algoritmo.upper() == 'SJF':
         lista_processos.sort(key=lambda x: x.tempo)
+    
+    lista_processos.sort(key=lambda x: x.prioridade, reverse=True)
     
     print(f"Lista de processos:")
     for p in lista_processos: print(p)
@@ -55,7 +59,8 @@ def main():
         nome = input("Digite um nome: ")
         tempo = int(input("Digite o tempo de duração: "))
         chegada = int(input("Digite a chegada: "))
-        meus_processos.append(Processos(nome=nome, tempo=tempo, chegada=chegada))
+        prioridade = int(input("Digite a prioridade: "))
+        meus_processos.append(Processos(nome=nome, tempo=tempo, chegada=chegada, prioridade=prioridade))
     
     algo = input("Digite que tipo de algoritmo você deseja utilizar (FIFO/SJF)").upper()
 
