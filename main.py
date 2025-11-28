@@ -1,6 +1,8 @@
 import time
 import threading
 
+#Desenvolvido por Erick Abackerli & Ryan Rangel
+
 class Processos:
     def __init__(self, nome, tempo, chegada, prioridade):
         self.nome = nome
