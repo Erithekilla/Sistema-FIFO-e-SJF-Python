@@ -25,7 +25,7 @@ def simulador(lista_processos, algoritmo):
     
     print(f"Será executado o algoritmo {algoritmo}")
     
-    lista_processos.sort(key=lambda x: x.prioridade)
+    lista_processos.sort(key=lambda x: x.prioridade, reverse=True)
 
     if algoritmo.upper() == 'FIFO':
         lista_processos.sort(key=lambda x: x.chegada)
@@ -33,11 +33,9 @@ def simulador(lista_processos, algoritmo):
     if algoritmo.upper() == 'SJF':
         lista_processos.sort(key=lambda x: x.tempo)
     
-    lista_processos.sort(key=lambda x: x.prioridade, reverse=True)
-    
     print(f"Lista de processos:")
     for p in lista_processos: print(p)
-
+	
     for p in lista_processos:
         t = threading.Thread(target=executar_processo, args=(p,))
 
